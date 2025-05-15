@@ -9,10 +9,10 @@ export default (sequelize, DataTypes) => {
       },
       organizationId: {
         type: DataTypes.INTEGER,
-        references: {
-          model: "organizations",
-          key: "id",
-        },
+        // references: {
+        //   model: "organizations",
+        //   key: "id",
+        // },
         onDelete: "CASCADE",
       },
       planId: {
@@ -41,31 +41,48 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.ENUM("ACTIVE", "EXPIRED", "CANCELLED"),
         defaultValue: "ACTIVE",
       },
-      amountPaid: DataTypes.FLOAT,
-      paymentRefId: DataTypes.STRING,
-      createdBy: DataTypes.INTEGER,
+      amountPaid: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      paymentRefId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      createdBy: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
       createdDate: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
-      modifiedBy: DataTypes.INTEGER,
-      modifiedDate: DataTypes.DATE,
+      modifiedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
+      modifiedDate: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
     },
     {
       timestamps: false,
     }
   );
 
-  OrganizationPlanSubscriptionSchema.associate = (models) => {
-    OrganizationPlanSubscriptionSchema.belongsTo(models.Organization, {
-      foreignKey: "organizationId",
-      as: "organization",
-    });
-    OrganizationPlanSubscriptionSchema.belongsTo(models.Organization, {
-      foreignKey: "planId",
-      as: "plan",
-    });
-  };
+  // OrganizationPlanSubscriptionSchema.associate = (models) => {
+  //   OrganizationPlanSubscriptionSchema.belongsTo(models.Organization, {
+  //     foreignKey: "organizationId",
+  //     as: "organization",
+  //   });
+  //   OrganizationPlanSubscriptionSchema.belongsTo(models.Organization, {
+  //     foreignKey: "planId",
+  //     as: "plan",
+  //   });
+  // };
 
   return OrganizationPlanSubscriptionSchema;
 };

@@ -232,7 +232,7 @@ const initializeIdentityDB = async () => {
       console.log("Admin user created successfully");
     }
   } catch (error) {
-    console.error("❌ Database initialization failed:", error);
+    console.error("❌ Identity Database initialization failed:", error);
     process.exit(1);
   }
 };

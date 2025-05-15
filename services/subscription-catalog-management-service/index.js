@@ -2,34 +2,27 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
-import { initializeDatabase } from "../../shared/config/db.config.js";
-async function initializeApp() {
-  const app = express();
+import { initializeSubscriptionCatalogDB } from "./config/db.config.js";
+import { envSubscriptionCatalogConfig } from "./config/env.config.js";
 
-  // Basic middleware only
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+const app = express();
 
-  // Initialize database
-  await initializeDatabase();
+// Basic middleware only
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-  // Basic route
-  app.get("/subsc-cat-mgmt-service", (req, res) => {
-    res.send(
-      "Welcome to the Saas-LMS API Subcription Catalog Management Service"
-    );
-  });
+// Initialize database
+await initializeSubscriptionCatalogDB();
 
-  const PORT = process.env.SUBSCRIPTION_MANAGEMENT_SERVICE_PORT || 8004;
+// Basic route
+app.get("/health", (req, res) => {
+  res.send("Welcome to the  Subcription Catalog Management Service");
+});
 
-  app.listen(PORT, () => {
-    console.log(
-      `Subcription Catalog Management Service  Server running on port ${PORT}`
-    );
-  });
-}
+const PORT = envSubscriptionCatalogConfig.SUBSCRIPTION_CATALOG_PORT || 8003;
 
-initializeApp().catch((err) => {
-  console.error("❌ Failed to start application:", err);
-  process.exit(1);
+app.listen(PORT, () => {
+  console.log(
+    `Subcription Catalog Management Service  Server running on port ${PORT}`
+  );
 });

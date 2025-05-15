@@ -34,7 +34,7 @@ app.get("/health", (req, res) => {
   res.send("Welcome to the Identity Management Service");
 });
 
-const PORT = envIdentityConfig.PORT || 8001;
+const PORT = envIdentityConfig.AUTH_PORT || 8001;
 
 app.listen(PORT, () => {
   console.log(`Identity Management Service  Server running on port ${PORT}`);

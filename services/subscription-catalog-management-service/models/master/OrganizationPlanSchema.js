@@ -8,13 +8,26 @@ export default (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(70),
         unique: true,
         allowNull: false,
       },
-      description: DataTypes.STRING,
-      price: DataTypes.FLOAT,
-      durationInMonths: DataTypes.INTEGER,
+      displayName: {
+        type: DataTypes.STRING(50),
+        trim: true,
+      },
+      description: {
+        type: DataTypes.STRING(50),
+        trim: true,
+      },
+      price: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+      },
+      durationInMonths: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       moduleIds: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         defaultValue: [],
@@ -24,20 +37,43 @@ export default (sequelize, DataTypes) => {
           },
         },
       },
-      isActive: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+      maxUsers: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 20,
       },
-      maxUsers: DataTypes.INTEGER,
-      maxRoles: DataTypes.INTEGER,
-      maxCourses: DataTypes.INTEGER,
-      createdBy: DataTypes.INTEGER,
+      maxRoles: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 5,
+      },
+      maxCourses: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 10,
+      },
+      createdBy: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
       createdDate: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
-      modifiedBy: DataTypes.INTEGER,
-      modifiedDate: DataTypes.DATE,
+      modifiedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
+      modifiedDate: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
       isDeleted: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
@@ -48,16 +84,16 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  OrganizationPlanSchema.associate = (models) => {
-    OrganizationPlanSchema.hasMany(models.Organization, {
-      foreignKey: "planId",
-      as: "organizations",
-    });
-    OrganizationPlanSchema.hasMany(models.OrganizationPlanSubscription, {
-      foreignKey: "planId",
-      as: "subscriptions",
-    });
-  };
+  // OrganizationPlanSchema.associate = (models) => {
+  //   OrganizationPlanSchema.hasMany(models.Organization, {
+  //     foreignKey: "planId",
+  //     as: "organizations",
+  //   });
+  //   OrganizationPlanSchema.hasMany(models.OrganizationPlanSubscription, {
+  //     foreignKey: "planId",
+  //     as: "subscriptions",
+  //   });
+  // };
 
   return OrganizationPlanSchema;
 };
