@@ -23,10 +23,17 @@ export default (sequelize, DataTypes) => {
       price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
+        defaultValue: 0.0,
       },
       durationInMonths: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 1,
+      },
+      code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "FREE",
       },
       moduleIds: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),

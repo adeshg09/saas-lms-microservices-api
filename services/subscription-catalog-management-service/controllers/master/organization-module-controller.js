@@ -4,25 +4,25 @@ import {
   RESPONSE_SUCCESS_MESSAGES,
 } from "../../constants/index.js";
 import {
-  deleteSubModuleService,
-  getAllSubModulesService,
-  getSubModuleByIdService,
-  insertSubModuleService,
-  updateSubModuleService,
-} from "../../services/master/organization-sub-module-service.js";
+  deleteModuleService,
+  getAllModulesService,
+  getModuleByIdService,
+  insertModuleService,
+  updateModuleService,
+} from "../../services/master/organization-module-service.js";
 
 import { errorResponse, successResponse } from "../../utils/response.js";
 
-export const insertSubModule = async (req, res) => {
+export const insertModule = async (req, res) => {
   try {
-    const { newSubModule } = await insertSubModuleService(req.body);
-    console.log("newSubModule in controller", newSubModule);
+    const { newModule } = await insertModuleService(req.body);
+    console.log("newModule in controller", newModule);
     return successResponse(
       res,
       RESPONSE_STATUS_CODES.OK,
       RESPONSE_MESSAGES.SUCCESS,
-      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_SUBMODULE.INSERT_SUCCESS,
-      { id: newSubModule.id }
+      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_MODULE.INSERT_SUCCESS,
+      { id: newModule.id }
     );
   } catch (error) {
     return errorResponse(
@@ -35,18 +35,15 @@ export const insertSubModule = async (req, res) => {
   }
 };
 
-export const updateSubModule = async (req, res) => {
+export const updateModule = async (req, res) => {
   try {
-    const { updatedSubModule } = await updateSubModuleService(
-      req.params,
-      req.body
-    );
+    const { updatedModule } = await updateModuleService(req.params, req.body);
     return successResponse(
       res,
       RESPONSE_STATUS_CODES.OK,
       RESPONSE_MESSAGES.SUCCESS,
-      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_SUBMODULE.UPDATE_SUCCESS,
-      { id: updatedSubModule.id }
+      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_MODULE.UPDATE_SUCCESS,
+      { id: updatedModule.id }
     );
   } catch (error) {
     return errorResponse(
@@ -59,14 +56,14 @@ export const updateSubModule = async (req, res) => {
   }
 };
 
-export const deleteSubModule = async (req, res) => {
+export const deleteModule = async (req, res) => {
   try {
-    await deleteSubModuleService(req.params, req.body);
+    await deleteModuleService(req.params, req.body);
     return successResponse(
       res,
       RESPONSE_STATUS_CODES.OK,
       RESPONSE_MESSAGES.SUCCESS,
-      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_SUBMODULE.DELETE_SUCCESS
+      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_MODULE.DELETE_SUCCESS
     );
   } catch (error) {
     return errorResponse(
@@ -79,15 +76,15 @@ export const deleteSubModule = async (req, res) => {
   }
 };
 
-export const getSubModuleById = async (req, res) => {
+export const getModuleById = async (req, res) => {
   try {
-    const { subModule } = await getSubModuleByIdService(req.params);
+    const { module } = await getModuleByIdService(req.params);
     return successResponse(
       res,
       RESPONSE_STATUS_CODES.OK,
       RESPONSE_MESSAGES.SUCCESS,
-      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_SUBMODULE.GET_SUCCESS,
-      { subModule }
+      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_MODULE.GET_SUCCESS,
+      { module }
     );
   } catch (error) {
     return errorResponse(
@@ -100,15 +97,15 @@ export const getSubModuleById = async (req, res) => {
   }
 };
 
-export const getAllSubModules = async (req, res) => {
+export const getAllModules = async (req, res) => {
   try {
-    const { subModules } = await getAllSubModulesService(req.params);
+    const { modules } = await getAllModulesService(req.params);
     return successResponse(
       res,
       RESPONSE_STATUS_CODES.OK,
       RESPONSE_MESSAGES.SUCCESS,
-      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_SUBMODULE.GET_ALL_SUCCESS,
-      { subModules }
+      RESPONSE_SUCCESS_MESSAGES.ORGANIZATION_MODULE.GET_ALL_SUCCESS,
+      { modules }
     );
   } catch (error) {
     return errorResponse(

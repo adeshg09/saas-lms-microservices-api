@@ -25,9 +25,9 @@ app.use("/auth", authRoutes);
 app.use("/account", authenticatedRoute, accountRoutes);
 
 //------------------------ Master Dashboard Routes ------------------------//
-app.use("/admin/master/dashboard", masterDashboardRoutes);
-app.use("/admin/master/user", masterUserRoutes);
-app.use("/admin/master/role", masterRoleRoutes);
+app.use("/admin/master/dashboard", authenticatedRoute, masterDashboardRoutes);
+app.use("/admin/master/user", authenticatedRoute, masterUserRoutes);
+app.use("/admin/master/role", authenticatedRoute, masterRoleRoutes);
 
 // Basic route
 app.get("/health", (req, res) => {

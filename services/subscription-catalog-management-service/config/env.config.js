@@ -24,4 +24,8 @@ export const envSubscriptionCatalogConfig = {
   DB_ACQUIRE_TIMEOUT: process.env.DB_ACQUIRE_TIMEOUT,
   DB_WAIT_FOR_CONNECTION: process.env.DB_WAIT_FOR_CONNECTION === "true", // Convert string to boolean
   DB_CHARSET: process.env.DB_CHARSET,
+
+  JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
+  RESET_PASSWORD_SECRET_JWT_KEY: process.env.RESET_PASSWORD_SECRET_JWT_KEY,
+  DEFAULT_ORGANIZATION_PLAN: process.env.DEFAULT_ORGANIZATION_PLAN,
 };

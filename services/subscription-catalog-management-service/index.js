@@ -4,6 +4,11 @@ dotenv.config();
 import express from "express";
 import { initializeSubscriptionCatalogDB } from "./config/db.config.js";
 import { envSubscriptionCatalogConfig } from "./config/env.config.js";
+import authenticatedRoute from "./middleware/authentication.js";
+
+import OrganizationSubModulesRoutes from "./routes/master/organization-sub-module.js";
+import OrganizationModulesRoutes from "./routes/master/organization-module.js";
+import OrganizationPlansRoutes from "./routes/master/organization-plan.js";
 
 const app = express();
 
@@ -13,6 +18,23 @@ app.use(express.urlencoded({ extended: true }));
 
 // Initialize database
 await initializeSubscriptionCatalogDB();
+
+//------------------------ Master Dashboard Routes ------------------------//
+app.use(
+  "/admin/master/organizationSubModule",
+  authenticatedRoute,
+  OrganizationSubModulesRoutes
+);
+app.use(
+  "/admin/master/organizationModule",
+  authenticatedRoute,
+  OrganizationModulesRoutes
+);
+app.use(
+  "/admin/master/organizationPlan",
+  authenticatedRoute,
+  OrganizationPlansRoutes
+);
 
 // Basic route
 app.get("/health", (req, res) => {

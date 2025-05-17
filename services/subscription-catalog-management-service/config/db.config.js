@@ -11,6 +11,7 @@ import OrganizationPlanSubscriptionSchema from "../models/master/OrganizationPla
 import OrganizationModuleSchema from "../models/master/OrganizationModuleSchema.js";
 import OrganizationSubmoduleSchema from "../models/master/OrganizationSubmoduleSchema.js";
 import OrganizationModuleSubmoduleSchema from "../models/master/OrganizationModuleSubmoduleSchema.js";
+import { generateNameByDisplayName } from "../utils/index.js";
 
 // # =========================================================================
 
@@ -110,6 +111,24 @@ const initializeSubscriptionCatalogDB = async () => {
     console.log("✅ SubscriptionCatalog Database connected successfully.");
 
     await syncSubscriptionCatalogDB();
+
+    const defaultPlan = await subscriptionCatalogDB.OrganizationPlan.findOne({
+      where: {
+        name: envSubscriptionCatalogConfig.DEFAULT_ORGANIZATION_PLAN,
+        isDeleted: false,
+      },
+    });
+
+    if (!defaultPlan) {
+      await subscriptionCatalogDB.OrganizationPlan.create({
+        name: generateNameByDisplayName(
+          envSubscriptionCatalogConfig.DEFAULT_ORGANIZATION_PLAN
+        ),
+        displayName: envSubscriptionCatalogConfig.DEFAULT_ORGANIZATION_PLAN,
+        description: "Default Plan for Organization",
+        moduleIds: [1],
+      });
+    }
   } catch (error) {
     console.error(
       "❌ SubscriptionCatalog Database initialization failed:",

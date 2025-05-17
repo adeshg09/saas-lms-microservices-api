@@ -1,12 +1,11 @@
 import { Router } from "express";
-// import {
-//   deleteDashboardSection,
-//   generateDashboardSectionCode,
-//   getAllDashboardSections,
-//   getDashboardSectionById,
-//   insertDashboardSection,
-//   updateDashboardSection,
-// } from "../../controllers/master/master-dashboard-sections-controller.js";
+import {
+  insertSubModule,
+  updateSubModule,
+  deleteSubModule,
+  getSubModuleById,
+  getAllSubModules,
+} from "../../controllers/master/organization-sub-module-controller.js";
 
 const router = Router();
 
